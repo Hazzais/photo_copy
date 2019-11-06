@@ -34,7 +34,7 @@ class PhotosCopyYear:
         # value.
         for k, v in construct.items():
             if namedate[0].lower().endswith(k):
-                return os.path.join(v[0], v[1].format(namedate[2]),
+                return os.path.join(v.format(namedate[2]),
                                     namedate[0])
         else:
             raise RuntimeError("Object is of unsupported extension")
@@ -57,7 +57,8 @@ class PhotosCopyYear:
                                     self._exts_images + self._exts_videos)
 
         # Get input path for each image (make separate list to above)
-        imgs_input = map(lambda x: os.path.join(self._root_input, x), imgs)
+        imgs_input = list(map(lambda x: os.path.join(self._root_input, x),
+                              imgs))
 
         # On Windows, use date modified rather than created as copying files
         # resets their date whereas date modified stays the same
